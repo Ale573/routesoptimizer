@@ -6,7 +6,7 @@ class CSVReader:
         super().__init__()
 
     def getData(self):
-        with open('maps/map1.csv') as csvfile:
+        with open('tests/map1.csv') as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',')
             result = []
             for row in readCSV:

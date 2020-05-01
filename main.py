@@ -1,4 +1,4 @@
-from csvReader import CSVReader
+from data.csvReader import CSVReader
 
 def main():
     CSVReader().getData()
