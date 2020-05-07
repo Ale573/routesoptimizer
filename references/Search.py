@@ -177,10 +177,10 @@ def simulated_annealing(problem, schedule=exp_schedule()):
     for t in range(sys.maxsize):
         T = schedule(t)
         if T == 0:
-            return current.state
+            return current
         neighbors = current.expand(problem)
         if not neighbors:
-            return current.state
+            return current
         next_choice = random.choice(neighbors)
         delta_e = problem.value(next_choice.state) - problem.value(current.state)
         if delta_e > 0 or probability(np.exp(delta_e / T)):
@@ -246,6 +246,8 @@ class Graph:
         s2 = set([k2 for v in self.graph_dict.values() for k2, v2 in v.items()])
         nodes = s1.union(s2)
         return list(nodes)
+
+
 
 
 def UndirectedGraph(graph_dict=None):
@@ -336,6 +338,10 @@ class GraphProblem(Problem):
 
         return m
 
+    def value(self, node):
+        """Sets the value of the state of the nodes as the direct distance between the node and the goal, as provided by the function h(node)"""
+        return self.h(node)
+
     def h(self, node):
         """h function is straight-line distance from a node's state to goal."""
         locs = getattr(self.graph, 'locations', None)
@@ -348,20 +354,21 @@ class GraphProblem(Problem):
             return np.inf
 
 
-class GraphProblemStochastic(GraphProblem):
-    """
-    A version of GraphProblem where an action can lead to
-    nondeterministic output i.e. multiple possible states.
-    Define the graph as dict(A = dict(Action = [[<Result 1>, <Result 2>, ...], <cost>], ...), ...)
-    A the dictionary format is different, make sure the graph is created as a directed graph.
-    """
+        
 
-    def result(self, state, action):
-        return self.graph.get(state, action)
-
-    def path_cost(self):
-        raise NotImplementedError
 
 # ______________________________________________________________________________
 
 # Code to compare searchers on various problems. TODO
+
+#SANDBOX
+
+def main():
+    problem1 = GraphProblem("Arad", "Sibiu", romania_map)
+    locs = getattr(romania_map, 'locations', None)
+    print (problem1.value("Arad"))
+    
+    
+
+if __name__ == "__main__":
+    main()
