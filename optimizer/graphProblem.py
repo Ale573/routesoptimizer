@@ -1,4 +1,5 @@
 from optimizer.problem import Problem
+from optimizer.utils import distance
 import numpy as np
 
 class GraphProblem(Problem):
@@ -27,6 +28,17 @@ class GraphProblem(Problem):
             m = min(m, local_min)
 
         return m
+
+    def h(self, node):
+        """h function is straight-line distance from a node's state to goal."""
+        locs = getattr(self.graph, 'locations', None)
+        if locs:
+            if type(node) is str:
+                return int(distance(locs[node], locs[self.goal]))
+
+            return int(distance(locs[node.state], locs[self.goal]))
+        else:
+            return np.inf
 
 class GraphProblemStochastic(GraphProblem):
     """

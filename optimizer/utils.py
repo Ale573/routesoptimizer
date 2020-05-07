@@ -9,17 +9,6 @@ def get_data_from_csv(self):
             result.append(row)
         return result
 
-def h(self, node):
-        """h function is straight-line distance from a node's state to goal."""
-        locs = getattr(self.graph, 'locations', None)
-        if locs:
-            if type(node) is str:
-                return int(distance(locs[node], locs[self.goal]))
-
-            return int(distance(locs[node.state], locs[self.goal]))
-        else:
-            return np.inf
-
 def distance(a, b):
         """The distance between two (x, y) points."""
         xA, yA = a
@@ -29,3 +18,22 @@ def distance(a, b):
 def is_in(elt, seq):
     """Similar to (elt in seq), but compares with 'is', not '=='."""
     return any(x is elt for x in seq)
+
+def memoize(fn, slot=None, maxsize=32):
+    """Memoize fn: make it remember the computed value for any argument list.
+    If slot is specified, store result in that slot of first argument.
+    If slot is false, use lru_cache for caching the values."""
+    if slot:
+        def memoized_fn(obj, *args):
+            if hasattr(obj, slot):
+                return getattr(obj, slot)
+            else:
+                val = fn(obj, *args)
+                setattr(obj, slot, val)
+                return val
+    else:
+        @functools.lru_cache(maxsize=maxsize)
+        def memoized_fn(*args):
+            return fn(*args)
+
+    return memoized_fn

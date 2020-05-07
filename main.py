@@ -1,5 +1,7 @@
 from optimizer.graphProblem import GraphProblem
 from optimizer.graph import UndirectedGraph
+from optimizer.search import astar_search
+from optimizer.problem import Problem
 
 # Romania Map to Graph
 romania_map = UndirectedGraph(dict(
@@ -30,7 +32,8 @@ romania_map.locations = dict(
 def main():
     romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
     # Testing the map. Right now looks for the edge with the smallest value.
-    print(romania_problem.find_min_edge())
+    # print(romania_problem.find_min_edge())
+    print(astar_search(romania_problem).solution())
 
 if __name__ == "__main__":
     main()
