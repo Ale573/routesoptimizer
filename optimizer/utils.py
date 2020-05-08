@@ -1,5 +1,6 @@
 import numpy as np
 import csv
+import random
 
 def get_data_from_csv(self):
     with open('tests/map2.csv', encoding='utf-8') as csvfile:
@@ -8,6 +9,10 @@ def get_data_from_csv(self):
         for row in readCSV:
             result.append(row)
         return result
+
+def probability(p):
+    """Return true with probability p."""
+    return p > random.uniform(0.0, 1.0)
 
 def distance(a, b):
         """The distance between two (x, y) points."""

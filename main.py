@@ -1,6 +1,7 @@
 from optimizer.graphProblem import GraphProblem
 from optimizer.graph import UndirectedGraph
 from optimizer.search import astar_search
+from optimizer.search import simulated_annealing
 from optimizer.problem import Problem
 
 # Romania Map to Graph
@@ -31,9 +32,14 @@ romania_map.locations = dict(
 
 def main():
     romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
-    # Testing the map. Right now looks for the edge with the smallest value.
-    # print(romania_problem.find_min_edge())
-    print(astar_search(romania_problem).solution())
+
+    # Testing both algorithm with distance
+    astar_result = astar_search(romania_problem).solution()
+    simulated_annealing_result = simulated_annealing(romania_problem)
+
+    print(simulated_annealing_result)
+    print(astar_result)
+    
 
 if __name__ == "__main__":
     main()
