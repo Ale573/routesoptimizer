@@ -171,20 +171,53 @@ def exp_schedule(k=20, lam=0.005, limit=100):
 
 
 def simulated_annealing(problem, schedule=exp_schedule()):
-    """[Figure 4.5] CAUTION: This differs from the pseudocode as it
-    returns a state instead of a Node."""
+    """[Figure 4.5] Returns node"""
     current = Node(problem.initial)
+    best_path = []
+    best_path.append(current)
     for t in range(sys.maxsize):
         T = schedule(t)
         if T == 0:
+            print("Result at T=0: " + str(best_path))
             return current
         neighbors = current.expand(problem)
         if not neighbors:
+            print("Result at no neighbors: " + str(best_path))
             return current
         next_choice = random.choice(neighbors)
         delta_e = problem.value(next_choice.state) - problem.value(current.state)
-        if delta_e > 0 or probability(np.exp(delta_e / T)):
+        if delta_e < 0 or probability(np.exp(delta_e / T)):
+            if not best_path.__contains__(current):
+                best_path.append(current)
+            print("Analyzing with: " + str(best_path))
             current = next_choice
+
+def simulated_annealing2(graph_problem, schedule=exp_schedule()):
+    """[Figure 4.5] Returns node"""
+    current = Node(graph_problem.initial)
+    best_path = []
+    best_distance = graph_problem.value(current)
+    best_path.append(current)
+    for t in range(sys.maxsize):
+        T = schedule(t)
+        if T == 0:
+            print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(best_distance))
+            return current
+        neighbors = current.expand(graph_problem)
+        if not neighbors:
+            print("\n returned " + str(best_path) + " with a T of " + str(T) + " because it had no neighbors.")
+            return current
+        next_choice = random.choice(neighbors)
+        delta_e = graph_problem.value(next_choice.state) - graph_problem.value(current.state)
+        if delta_e < 0 :
+            current = next_choice
+            if not best_path.__contains__(current):
+                best_path.append(current)
+                best_distance+=graph_problem.value(current)
+            print("\n analyzing" + str(current) + " at a T of " + str(T) + " and a delta_e of " + str(delta_e)
+            + " resulting in " + str(best_path) + " and a distance of " + str(best_distance))
+
+            
 
 # _____________________________________________________________________________
 # The remainder of this file implements examples for the search algorithms.
@@ -364,9 +397,10 @@ class GraphProblem(Problem):
 #SANDBOX
 
 def main():
-    problem1 = GraphProblem("Arad", "Sibiu", romania_map)
+    problem1 = GraphProblem("Arad", "Bucharest", romania_map)
     locs = getattr(romania_map, 'locations', None)
-    print (problem1.value("Arad"))
+    #print(simulated_annealing(problem1))
+    simulated_annealing2(problem1)
     
     
 
