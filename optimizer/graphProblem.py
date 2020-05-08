@@ -1,5 +1,6 @@
 from optimizer.problem import Problem
 from optimizer.utils import distance
+# import references.utils
 import numpy as np
 
 class GraphProblem(Problem):
@@ -29,6 +30,10 @@ class GraphProblem(Problem):
 
         return m
 
+    def value(self, node):
+        """Sets the value of the state of the nodes as the direct distance between the node and the goal, as provided by the function h(node)"""
+        return self.h(node)
+
     def h(self, node):
         """h function is straight-line distance from a node's state to goal."""
         locs = getattr(self.graph, 'locations', None)
@@ -39,17 +44,3 @@ class GraphProblem(Problem):
             return int(distance(locs[node.state], locs[self.goal]))
         else:
             return np.inf
-
-class GraphProblemStochastic(GraphProblem):
-    """
-    A version of GraphProblem where an action can lead to
-    nondeterministic output i.e. multiple possible states.
-    Define the graph as dict(A = dict(Action = [[<Result 1>, <Result 2>, ...], <cost>], ...), ...)
-    A the dictionary format is different, make sure the graph is created as a directed graph.
-    """
-
-    def result(self, state, action):
-        return self.graph.get(state, action)
-
-    def path_cost(self):
-        raise NotImplementedError
