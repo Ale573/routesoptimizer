@@ -4,6 +4,8 @@ from optimizer.search import astar_search
 from optimizer.search import simulated_annealing
 from optimizer.problem import Problem
 
+from optimizer.utils import map_to_dict
+
 # Romania Map to Graph
 romania_map = UndirectedGraph(dict(
     Arad=dict(Zerind=75, Sibiu=140, Timisoara=118),
@@ -31,14 +33,22 @@ romania_map.locations = dict(
     Vaslui=(509, 444), Zerind=(108, 531))
 
 def main():
+    # Maps Dictionary
+    usa_dict = map_to_dict(csv_map='USAMap.csv')
+    print(usa_dict)
+
+    # Dictionary to Graph
+    usa_map = UndirectedGraph(usa_dict)
+
+    # Generate Problems
     romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
 
     # Testing both algorithm with distance
-    astar_result = astar_search(romania_problem).solution()
-    simulated_annealing_result = simulated_annealing(romania_problem)
+    #astar_result = astar_search(romania_problem).solution()
+    #simulated_annealing_result = simulated_annealing(romania_problem)
 
-    print(simulated_annealing_result)
-    print(astar_result)
+    #print(simulated_annealing_result)
+    #print(astar_result)
     
 
 if __name__ == "__main__":

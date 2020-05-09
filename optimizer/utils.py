@@ -2,13 +2,27 @@ import numpy as np
 import csv
 import random
 
-def get_data_from_csv(self):
-    with open('tests/map2.csv', encoding='utf-8') as csvfile:
+def get_data_from_csv(csv_map):
+    with open('tests/' + csv_map, encoding='utf-8') as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         result = []
         for row in readCSV:
             result.append(row)
         return result
+
+def map_to_dict(csv_map):
+    csv_data = get_data_from_csv(csv_map)
+    cities = csv_data[0][1:]
+    result = dict()
+    for row in csv_data[1:]:
+        connections = dict()
+        index = 0
+        for column in row[1:]:
+            if int(column) != 0:
+                connections[cities[index]] = column
+            index += 1
+        result[row[0]] = connections
+    return result
 
 def probability(p):
     """Return true with probability p."""
