@@ -5,6 +5,9 @@ from optimizer.search import simulated_annealing
 from optimizer.problem import Problem
 
 from optimizer.utils import map_to_dict
+from optimizer.utils import map_coordenates
+
+import geopy.distance
 
 # Romania Map to Graph
 romania_map = UndirectedGraph(dict(
@@ -35,20 +38,54 @@ romania_map.locations = dict(
 def main():
     # Maps Dictionary
     usa_dict = map_to_dict(csv_map='USAMap.csv')
-    print(usa_dict)
+    usa_dict_locations = map_coordenates(csv_map='USAMap.csv')
 
     # Dictionary to Graph
     usa_map = UndirectedGraph(usa_dict)
+    usa_map.locations = usa_dict_locations
 
     # Generate Problems
-    romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
+    #romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
+    usa_problem = GraphProblem('WA', 'DC', usa_map)
 
     # Testing both algorithm with distance
     #astar_result = astar_search(romania_problem).solution()
     #simulated_annealing_result = simulated_annealing(romania_problem)
+    astar_result = astar_search(usa_problem).solution()
 
     #print(simulated_annealing_result)
-    #print(astar_result)
+    print(astar_result)
+
+    # nodes = ['WA', 'CA1', 'CA2', 'UT', 'CO', 'TX', 'NE', 'IL', 'PA', 'GA', 'MI', 'NY', 'NJ', 'DC']
+
+    # location = [(47, 121),
+    #             (36, 120),
+    #             (34, 118),
+    #             (40, 111),
+    #             (39, 105),
+    #             (31, 98),
+    #             (41, 98),
+    #             (40, 89),
+    #             (41, 77),
+    #             (33, 84),
+    #             (43, 85),
+    #             (42, 75),
+    #             (40, 75),
+    #             (38, 77)
+    # ]
+
+    # i = 0
+    # j = 0
+
+    # for row in location:
+    #     if i < len(nodes):
+    #         print(nodes[i])
+    #         for column in location:
+    #             if j < len(nodes):
+    #                 print ('%s distance is %f' % (nodes[j], geopy.distance.geodesic(row, column).km))
+    #             j += 1
+    #         j = 0
+    #         i += 1
     
 
 if __name__ == "__main__":
