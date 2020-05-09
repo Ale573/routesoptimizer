@@ -24,11 +24,11 @@ class SimulatedAnnealing:
             T = schedule(t)
             if T == 0:
                 print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(best_distance))
-                return current
+                return best_path
             neighbors = current.expand(graph_problem)
             if not neighbors:
                 print("\n returned " + str(best_path) + " with a T of " + str(T) + " because it had no neighbors.")
-                return current
+                return best_path
             next_choice = random.choice(neighbors)
             delta_e = graph_problem.value(next_choice.state) - graph_problem.value(current.state)
             if delta_e < 0 :
