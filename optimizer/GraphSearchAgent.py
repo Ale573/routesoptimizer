@@ -5,8 +5,6 @@ class GraphSearchAgent:
     Modified from [Figure 3.1]
     Abstract framework for a problem-solving agent.
     """
-
-
     state = None
     problem = None
     goal = None
@@ -36,9 +34,9 @@ class GraphSearchAgent:
     def search(self, algorithm):
         """Use the keywords "A*" or "Annealing" to choose the search algorithm. By default it will search using both"""
         if algorithm=="A*":
-            return AStar.search(self.problem)
+            return astar_search(self.problem)
         elif algorithm=="Annealing":
-            return SimmulatedAnnealing.search(self.problem)
+            return simulated_annealing(self.problem)
         else:
             return None
 
