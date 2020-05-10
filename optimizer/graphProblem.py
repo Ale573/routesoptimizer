@@ -1,5 +1,3 @@
-import references.utils
-import numpy as np
 
 class GraphProblem(Problem):
     """The problem of searching a graph from one node to another."""
