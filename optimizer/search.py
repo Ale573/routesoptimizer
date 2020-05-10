@@ -34,7 +34,7 @@ def best_first_graph_search(problem, f, display=False):
                     del frontier[child]
                     frontier.append(child)
     return None
-
+  
 # A* algorithm 
 def astar_search(problem, h=None, display=False):
     """A* search is best-first graph search with f(n) = g(n)+h(n).
@@ -72,3 +72,4 @@ def simulated_annealing(graph_problem, schedule=exp_schedule()):
                 best_distance+=graph_problem.value(current)
             print("\n analyzing" + str(current) + " at a T of " + str(T) + " and a delta_e of " + str(delta_e)
             + " resulting in " + str(best_path) + " and a distance of " + str(best_distance))
+
