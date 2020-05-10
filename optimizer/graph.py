@@ -52,10 +52,7 @@ class Graph:
         nodes = s1.union(s2)
         return list(nodes)
 
-#_________________________________________________________________________________
 
 def UndirectedGraph(graph_dict=None):
     """Build a Graph where every edge (including future ones) goes both ways."""
     return Graph(graph_dict=graph_dict, directed=False)
-
-

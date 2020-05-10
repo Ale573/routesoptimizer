@@ -1,4 +1,6 @@
-import references.utils
+from optimizer.problem import Problem
+from optimizer.utils import distance
+# import references.utils
 import numpy as np
 
 class GraphProblem(Problem):

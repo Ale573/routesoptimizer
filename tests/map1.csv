@@ -1,4 +1,0 @@
-﻿city,next_city,route_distance (km),speed_limit (km/h),actual_speed (km/h),traffic_congestion,ideal_time (min),car_time (min)
-Arad ,Zerind,75,50,45,0.4,90,100
-Arad ,Sibiu,140,65,60,0.5,129.2307692,140
-Arad ,Timisoara,118,45,40,0.3,157.3333333,177

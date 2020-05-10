@@ -18,14 +18,14 @@ def best_first_graph_search(problem, f, display=False):
     node = Node(problem.initial)
     frontier = PriorityQueue('min', f)
     frontier.append(node)
-    explored = []
+    explored = set()
     while frontier:
         node = frontier.pop()
         if problem.goal_test(node.state):
             if display:
                 print(len(explored), "paths have been expanded and", len(frontier), "paths remain in the frontier")
             return node
-        explored.append(node.state)
+        explored.add(node.state)
         for child in node.expand(problem):
             if child.state not in explored and child not in frontier:
                 frontier.append(child)
@@ -33,8 +33,8 @@ def best_first_graph_search(problem, f, display=False):
                 if f(child) < frontier[child]:
                     del frontier[child]
                     frontier.append(child)
-    return explored
-
+    return None
+  
 # A* algorithm 
 def astar_search(problem, h=None, display=False):
     """A* search is best-first graph search with f(n) = g(n)+h(n).
@@ -58,11 +58,11 @@ def simulated_annealing(graph_problem, schedule=exp_schedule()):
         T = schedule(t)
         if T == 0:
             print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(best_distance))
-            return best_path
+            return current
         neighbors = current.expand(graph_problem)
         if not neighbors:
             print("\n returned " + str(best_path) + " with a T of " + str(T) + " because it had no neighbors.")
-            return best_path
+            return current
         next_choice = random.choice(neighbors)
         delta_e = graph_problem.value(next_choice.state) - graph_problem.value(current.state)
         if delta_e < 0 :
@@ -72,4 +72,4 @@ def simulated_annealing(graph_problem, schedule=exp_schedule()):
                 best_distance+=graph_problem.value(current)
             print("\n analyzing" + str(current) + " at a T of " + str(T) + " and a delta_e of " + str(delta_e)
             + " resulting in " + str(best_path) + " and a distance of " + str(best_distance))
-            
+
