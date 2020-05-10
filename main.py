@@ -53,12 +53,12 @@ def main():
 
     # Romania 
     astar_result = astar_search(romania_problem).solution()
-    # simulated_annealing_result = simulated_annealing(romania_problem)
+    #simulated_annealing_result = simulated_annealing(romania_problem)
 
     print('Path from Arad to Bucharest is:', astar_result)
 
     # USA s
-    astar_result = astar_search(usa_problem).solution()
+    problem= astar_search(usa_problem).solution()
 
     print('Path from WA to DC is:', astar_result)
     
