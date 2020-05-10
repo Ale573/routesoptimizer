@@ -40,32 +40,15 @@ romania_map.locations = dict(
 
 def main():
     
-    #USA MAP
-    # Maps Dictionary
-    usa_dict = map_to_dict(csv_map='USAMap.csv')
-    usa_dict_locations = map_coordenates(csv_map='USAMap.csv')
-
-    # Dictionary to Graph
-    usa_map = UndirectedGraph(usa_dict)
-    usa_map.locations = usa_dict_locations
-    
-    #PR MAP
-    # Maps Dictionary
-    pr_dict = map_to_dict(csv_map='PRMap.csv')
-    pr_dict_locations = map_coordenates(csv_map='PRMap.csv')
-
-    # Dictionary to Graph
-    pr_map = UndirectedGraph(pr_dict)
-    pr_map.locations = pr_dict_locations
 
     #Search agent
     agent1= GraphSearchAgent('Arad', 'Bucharest', romania_map)
     print("Agent has discovered the path "+ str(agent1.__call__('A*')) + " using A*.")
 
-    agent2= GraphSearchAgent('WA', 'DC', usa_map)
-    print("Agent has discovered the path "+ str(agent2.__call__('A*')) + " using A*.")
+    agent2= GraphSearchAgent('WA', 'DC', 'USAMap.csv')
+    print("Agent has discovered the path " + str(agent2.__call__('A*')) + " using A*.")
 
-    agent3= GraphSearchAgent('Aguadilla', 'San Germán', pr_map)
+    agent3= GraphSearchAgent('Aguadilla', 'San Germán', 'PRMap.csv')
     print("Agent has discovered the path "+ str(agent3.__call__('A*')) + " using A*.")    
 
 if __name__ == "__main__":

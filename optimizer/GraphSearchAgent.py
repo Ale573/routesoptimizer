@@ -4,7 +4,8 @@ from optimizer.search import astar_search
 from optimizer.search import simulated_annealing
 from optimizer.problem import Problem
 
-
+from optimizer.utils import map_to_dict
+from optimizer.utils import map_coordenates
 
 class GraphSearchAgent:
     """
@@ -20,14 +21,26 @@ class GraphSearchAgent:
         """(Modified) State is an abstract representation of the state
         of the world, and seq is the list of actions required
         to get to a particular state from the initial state(root).
-        The environment is a given graph"""
+        The environment is a given file that will turn into a graph"""
 
         self.state = initial_state
         self.goal = goal
-        self.problem = GraphProblem(initial_state, goal, environment)
+        if isinstance(environment, str):
+            #If given string of name of file
+            #Map dictionary
+            file_dict= map_to_dict(csv_map=environment)
+            file_dict_locations = map_coordenates(csv_map=environment)
+            # Dictionary to Graph
+            file_map = UndirectedGraph(file_dict)
+            file_map.locations = file_dict_locations
+            self.problem = GraphProblem(initial_state, goal, file_map)
+        else:
+            #if given graph
+            self.problem = GraphProblem(initial_state, goal, environment)
+
         self.seq = []
 
-    def __call__(self, percept="A*"):
+    def __call__(self, percept='A*'):
         """[Figure 3.1] (Modified) With goal, problem, and state
         search for a sequence of actions to solve it.
         Percept should be the name of the algorithm to implement in the search"""
