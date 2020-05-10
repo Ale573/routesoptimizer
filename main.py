@@ -4,6 +4,8 @@ from optimizer.search import astar_search
 from optimizer.search import simulated_annealing
 from optimizer.problem import Problem
 
+from optimizer.graphSearchAgent import GraphSearchAgent
+
 from optimizer.utils import map_to_dict
 from optimizer.utils import map_coordenates
 
@@ -56,29 +58,15 @@ def main():
     pr_map = UndirectedGraph(pr_dict)
     pr_map.locations = pr_dict_locations
 
-    # Generate Problems
-    romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
-    usa_problem = GraphProblem('WA', 'DC', usa_map)
-    pr_problem = GraphProblem('Aguadilla', 'San Germán', pr_map)
+    #Search agent
+    agent1= GraphSearchAgent('Arad', 'Bucharest', romania_map)
+    print("Agent has discovered the path "+ str(agent1.__call__('A*')) + " using A*.")
 
-    # Testing both algorithm with distance
+    agent2= GraphSearchAgent('WA', 'DC', usa_map)
+    print("Agent has discovered the path "+ str(agent2.__call__('A*')) + " using A*.")
 
-    # Romania 
-    astar_result = astar_search(romania_problem).solution()
-    #simulated_annealing_result = simulated_annealing(romania_problem)
-
-    print('Path from Arad to Bucharest is:', astar_result)
-
-
-    # USA 
-    problem= astar_search(usa_problem).solution()
-
-    print('Path from WA to DC is:', problem)
-
-
-    # PR
-    problem2 = astar_search(pr_problem).solution() 
-    print('Path from Aguadilla to San Germán is:', problem2)  
+    agent3= GraphSearchAgent('Aguadilla', 'San Germán', pr_map)
+    print("Agent has discovered the path "+ str(agent3.__call__('A*')) + " using A*.")    
 
 if __name__ == "__main__":
     main()
