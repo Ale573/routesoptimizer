@@ -1,24 +1,46 @@
-"""Provides some utilities widely used by other modules"""
-
-import heapq
-import random
-import functools
-import os.path
-
 import numpy as np
+import csv
+import random
 
-# ______________________________________________________________________________
-# Functions on Sequences and Iterables
-def is_in(elt, seq):
-    """Similar to (elt in seq), but compares with 'is', not '=='."""
-    return any(x is elt for x in seq)
+def get_data_from_csv(csv_map):
+    with open('tests/' + csv_map, encoding='utf-8') as csvfile:
+        readCSV = csv.reader(csvfile, delimiter=',')
+        result = []
+        for row in readCSV:
+            result.append(row)
+        return result
 
-# ______________________________________________________________________________
-# Statistical and mathematical functions
+def map_to_dict(csv_map):
+    csv_data = get_data_from_csv(csv_map)
+    cities = csv_data[0][2:]
+    result = dict()
+    for row in csv_data[1:]:
+        connections = dict()
+        index = 0
+        for column in row[2:]:
+            if float(column) != 0:
+                connections[cities[index]] = eval(column)
+            index += 1
+        result[row[1]] = connections
+    return result
+
+def map_coordenates(csv_map):
+    csv_data = get_data_from_csv(csv_map)
+    cities = csv_data[0][2:]
+    result = dict()
+    index = 0
+    for row in csv_data[1:]:
+        for column in row[:1]:
+            if index < len(cities):
+                result[cities[index]] = eval(column)
+            index += 1
+    return result
+
 def probability(p):
     """Return true with probability p."""
     return p > random.uniform(0.0, 1.0)
 
+<<<<<<< HEAD
 # ______________________________________________________________________________
 # Grid Functions
 def distance(a, b):
@@ -29,6 +51,17 @@ def distance(a, b):
 
 # ______________________________________________________________________________
 # Misc Functions
+=======
+def distance(a, b):
+        """The distance between two (x, y) points."""
+        xA, yA = a
+        xB, yB = b
+        return np.hypot((xA - xB), (yA - yB))
+
+def is_in(elt, seq):
+    """Similar to (elt in seq), but compares with 'is', not '=='."""
+    return any(x is elt for x in seq)
+>>>>>>> e8610dfacd681602f271e290c910b23bbb3e2beb
 
 def memoize(fn, slot=None, maxsize=32):
     """Memoize fn: make it remember the computed value for any argument list.
@@ -48,6 +81,7 @@ def memoize(fn, slot=None, maxsize=32):
             return fn(*args)
 
     return memoized_fn
+<<<<<<< HEAD
 
 # ______________________________________________________________________________
 # Queues: Stack, FIFOQueue, PriorityQueue
@@ -112,3 +146,5 @@ class PriorityQueue:
         heapq.heapify(self.heap)
 
 # ______________________________________________________________________________
+=======
+>>>>>>> e8610dfacd681602f271e290c910b23bbb3e2beb
