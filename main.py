@@ -37,6 +37,8 @@ romania_map.locations = dict(
     Vaslui=(509, 444), Zerind=(108, 531))
 
 def main():
+    
+    #USA MAP
     # Maps Dictionary
     usa_dict = map_to_dict(csv_map='USAMap.csv')
     usa_dict_locations = map_coordenates(csv_map='USAMap.csv')
@@ -44,10 +46,20 @@ def main():
     # Dictionary to Graph
     usa_map = UndirectedGraph(usa_dict)
     usa_map.locations = usa_dict_locations
+    
+    #PR MAP
+    # Maps Dictionary
+    pr_dict = map_to_dict(csv_map='PRMap.csv')
+    pr_dict_locations = map_coordenates(csv_map='PRMap.csv')
+
+    # Dictionary to Graph
+    pr_map = UndirectedGraph(pr_dict)
+    pr_map.locations = pr_dict_locations
 
     # Generate Problems
     romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
     usa_problem = GraphProblem('WA', 'DC', usa_map)
+    pr_problem = GraphProblem('Aguadilla', 'San Germán', pr_map)
 
     # Testing both algorithm with distance
 
@@ -57,11 +69,16 @@ def main():
 
     print('Path from Arad to Bucharest is:', astar_result)
 
-    # USA s
+
+    # USA 
     problem= astar_search(usa_problem).solution()
 
-    print('Path from WA to DC is:', astar_result)
-    
+    print('Path from WA to DC is:', problem)
+
+
+    # PR
+    problem2 = astar_search(pr_problem).solution() 
+    print('Path from Aguadilla to San Germán is:', problem2)  
 
 if __name__ == "__main__":
     main()
