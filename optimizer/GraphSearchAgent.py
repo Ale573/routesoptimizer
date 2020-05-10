@@ -44,6 +44,13 @@ class GraphSearchAgent:
         elif algorithm=='Annealing':
             return None #simulated_annealing(self.problem)
 
-
+    def change_distance_by_time(self, map_dict):
+        map_time = {}
+        for city in map_dict:
+            connections = {}
+            for neigthbor in map_dict[city]:
+                connections[neigthbor] = (map_dict[city][neigthbor]) / 45 # distance / speed (km / km/h)
+            map_time[city] = connections
+        return map_time
 
 

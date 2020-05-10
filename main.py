@@ -1,13 +1,11 @@
 from optimizer.graphProblem import GraphProblem
 from optimizer.graph import UndirectedGraph
-from optimizer.search import astar_search
-from optimizer.search import simulated_annealing
+from optimizer.search import astar_search, simulated_annealing
 from optimizer.problem import Problem
 
-from optimizer.graphSearchAgent import GraphSearchAgent
+from optimizer.GraphSearchAgent import GraphSearchAgent
 
-from optimizer.utils import map_to_dict
-from optimizer.utils import map_coordenates
+from optimizer.utils import map_to_dict, map_coordenates
 
 #import geopy.distance
 #geopy.distance.geodesic(row, column).km
@@ -59,14 +57,14 @@ def main():
     pr_map.locations = pr_dict_locations
 
     #Search agent
-    agent1= GraphSearchAgent('Arad', 'Bucharest', romania_map)
-    print("Agent has discovered the path "+ str(agent1.__call__('A*')) + " using A*.")
+    # agent1= GraphSearchAgent('Arad', 'Bucharest', romania_map)
+    # print("Agent has discovered the path "+ str(agent1.__call__('A*')) + " using A*.")
 
-    agent2= GraphSearchAgent('WA', 'DC', usa_map)
-    print("Agent has discovered the path "+ str(agent2.__call__('A*')) + " using A*.")
+    # agent2= GraphSearchAgent('WA', 'DC', usa_map)
+    # print("Agent has discovered the path "+ str(agent2.__call__('A*')) + " using A*.")
 
-    agent3= GraphSearchAgent('Aguadilla', 'San Germán', pr_map)
-    print("Agent has discovered the path "+ str(agent3.__call__('A*')) + " using A*.")    
+    # agent3= GraphSearchAgent('Aguadilla', 'San Germán', pr_map)
+    # print("Agent has discovered the path "+ str(agent3.__call__('A*')) + " using A*.")    
 
 if __name__ == "__main__":
     main()
