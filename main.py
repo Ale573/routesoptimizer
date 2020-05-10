@@ -46,21 +46,26 @@ def main():
     usa_map.locations = usa_dict_locations
 
     # Generate Problems
-    romania_problem = GraphProblem('Arad', 'Bucharest', romania_map)
-    usa_problem = GraphProblem('WA', 'DC', usa_map)
+    initial_romania = 'Arad'
+    goal_romania = 'Bucharest'
+    romania_problem = GraphProblem(initial_romania, goal_romania, romania_map)
+
+    initial_usa = 'CA1'
+    goal_usa = 'NY'
+    usa_problem = GraphProblem(initial_usa, goal_usa, usa_map)
 
     # Testing both algorithm with distance
 
     # Romania 
-    astar_result = astar_search(romania_problem).solution()
-    # simulated_annealing_result = simulated_annealing(romania_problem)
+    romania_result = astar_search(romania_problem).solution()
+    #simulated_annealing_result = simulated_annealing(romania_problem)
 
-    print('Path from Arad to Bucharest is:', astar_result)
+    print('Path from %s to %s is: %s' % (initial_romania, goal_romania, romania_result))
 
-    # USA s
-    astar_result = astar_search(usa_problem).solution()
+    # USA
+    usa_result = astar_search(usa_problem, usa_problem.h_for_longitude_latitude).solution()
 
-    print('Path from WA to DC is:', astar_result)
+    print('Path from %s to %s is: %s' % (initial_usa, goal_usa, usa_result))
     
 
 if __name__ == "__main__":

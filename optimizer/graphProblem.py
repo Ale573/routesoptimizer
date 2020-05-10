@@ -2,6 +2,7 @@ from optimizer.problem import Problem
 from optimizer.utils import distance
 # import references.utils
 import numpy as np
+import geopy.distance
 
 class GraphProblem(Problem):
     """The problem of searching a graph from one node to another."""
@@ -42,5 +43,15 @@ class GraphProblem(Problem):
                 return int(distance(locs[node], locs[self.goal]))
 
             return int(distance(locs[node.state], locs[self.goal]))
+        else:
+            return np.inf
+
+    def h_for_longitude_latitude(self, node):
+        """h function is straight-line distance from a node's state to goal."""
+        locs = getattr(self.graph, 'locations', None)
+        if locs:
+            if type(node) is str:
+                return geopy.distance.geodesic(locs[node.state], locs[self.goal]).km
+            return geopy.distance.geodesic(locs[node.state], locs[self.goal]).km
         else:
             return np.inf
