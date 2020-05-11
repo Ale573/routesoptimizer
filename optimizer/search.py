@@ -34,7 +34,7 @@ def best_first_graph_search(problem, f, display=False):
                     del frontier[child]
                     frontier.append(child)
     return None
-
+  
 # A* algorithm 
 def astar_search(problem, h=None, display=False):
     """A* search is best-first graph search with f(n) = g(n)+h(n).
@@ -48,27 +48,30 @@ def exp_schedule(k=20, lam=0.005, limit=100):
     """One possible schedule function for simulated annealing"""
     return lambda t: (k * np.exp(-lam * t) if t < limit else 0)
 
-def simulated_annealing(graph_problem, schedule=exp_schedule()):
+def simulated_annealing(problem, schedule=exp_schedule()):
     """[Figure 4.5] Returns node"""
-    current = Node(graph_problem.initial)
+    current = Node(problem.initial)
+    current_value = problem.value(current.state)
     best_path = []
-    best_distance = graph_problem.value(current)
-    best_path.append(current)
+    distance_traveled = 0
+    best_path.append(current.state)
     for t in range(sys.maxsize):
-        T = schedule(t)
+        T = current_value
         if T == 0:
-            print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(best_distance))
+            print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(distance_traveled))
             return current
-        neighbors = current.expand(graph_problem)
+        neighbors = current.expand(problem)
         if not neighbors:
             print("\n returned " + str(best_path) + " with a T of " + str(T) + " because it had no neighbors.")
             return current
         next_choice = random.choice(neighbors)
-        delta_e = graph_problem.value(next_choice.state) - graph_problem.value(current.state)
+        delta_e = problem.value(next_choice.state) - current_value
         if delta_e < 0 :
             current = next_choice
-            if not best_path.__contains__(current):
-                best_path.append(current)
-                best_distance+=graph_problem.value(current)
+            current_value=problem.value(current.state)
+            if not best_path.__contains__(current.state):
+                best_path.append(current.state)    
+                distance_traveled+=current_value
             print("\n analyzing" + str(current) + " at a T of " + str(T) + " and a delta_e of " + str(delta_e)
-            + " resulting in " + str(best_path) + " and a distance of " + str(best_distance))
+            + " resulting in " + str(best_path) + " and a distance of " + str(distance_traveled))
+

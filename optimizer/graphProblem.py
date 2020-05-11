@@ -7,9 +7,11 @@ import geopy.distance
 class GraphProblem(Problem):
     """The problem of searching a graph from one node to another."""
 
-    def __init__(self, initial, goal, graph):
+    def __init__(self, initial, goal, graph, speed, romania=False):
         super().__init__(initial, goal)
         self.graph = graph
+        self.speed = speed
+        self.romania = romania
 
     def actions(self, A):
         """The actions at a graph node are just its neighbors."""
@@ -36,22 +38,22 @@ class GraphProblem(Problem):
         return self.h(node)
 
     def h(self, node):
-        """h function is straight-line distance from a node's state to goal."""
-        locs = getattr(self.graph, 'locations', None)
-        if locs:
-            if type(node) is str:
-                return int(distance(locs[node], locs[self.goal]))
+        if self.romania:
+            """h function is straight-line distance from a node's state to goal. Using grid system for romania."""
+            locs = getattr(self.graph, 'locations', None)
+            if locs:
+                if type(node) is str:
+                    return int(distance(locs[node], locs[self.goal]))
 
-            return int(distance(locs[node.state], locs[self.goal]))
+                return int(distance(locs[node.state], locs[self.goal]))
+            else:
+                return np.inf
         else:
-            return np.inf
-
-    def h_for_longitude_latitude(self, node):
-        """h function is straight-line distance from a node's state to goal."""
-        locs = getattr(self.graph, 'locations', None)
-        if locs:
-            if type(node) is str:
-                return geopy.distance.geodesic(locs[node.state], locs[self.goal]).km
-            return geopy.distance.geodesic(locs[node.state], locs[self.goal]).km
-        else:
-            return np.inf
+            """Using latitude and longitude."""
+            locs = getattr(self.graph, 'locations', None)
+            if locs:
+                if type(node) is str:
+                    return (geopy.distance.geodesic(locs[node.state], locs[self.goal]).km / self.speed)
+                return (geopy.distance.geodesic(locs[node.state], locs[self.goal]).km / self.speed)
+            else:
+                return np.inf
