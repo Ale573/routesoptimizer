@@ -50,11 +50,15 @@ def main():
 
     agent3= GraphSearchAgent('WA', 'DC', 'USAMap.csv')
     print("Agent has discovered the path " + str(agent3.__call__('A*')) + " using A*.")
-    print("Agent has discovered the path " + str(agent3.__call__('Annealing')) + " using Annealing.")
+    
+    agent4= GraphSearchAgent('WA', 'DC', 'USAMap.csv')
+    print("Agent has discovered the path " + str(agent4.__call__('Annealing')) + " using Annealing.")
 
-    agent4= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
-    print("Agent has discovered the path "+ str(agent4.__call__('A*')) + " using A*.")
-    print("Agent has discovered the path " + str(agent4.__call__('Annealing')) + " using Annealing.")    
+    agent5= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
+    print("Agent has discovered the path "+ str(agent5.__call__('A*')) + " using A*.")
+
+    agent6= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
+    print("Agent has discovered the path " + str(agent6.__call__('Annealing')) + " using Annealing.")    
 
 if __name__ == "__main__":
     main()
