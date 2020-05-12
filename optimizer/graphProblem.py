@@ -1,17 +1,15 @@
 from optimizer.problem import Problem
 from optimizer.utils import distance
-# import references.utils
 import numpy as np
 import geopy.distance
 
 class GraphProblem(Problem):
     """The problem of searching a graph from one node to another."""
 
-    def __init__(self, initial, goal, graph, speed, romania=False):
+    def __init__(self, initial, goal, graph, speed):
         super().__init__(initial, goal)
         self.graph = graph
         self.speed = speed
-        self.romania = romania
 
     def actions(self, A):
         """The actions at a graph node are just its neighbors."""
@@ -21,7 +19,7 @@ class GraphProblem(Problem):
         """The result of going to a neighbor is just that neighbor."""
         return action
 
-    def path_cost(self, cost_so_far, A, action, B):
+    def path_cost(self, cost_so_far, A, action, B=None):
         return cost_so_far + (self.graph.get(A, B) or np.inf)
 
     def find_min_edge(self):
@@ -30,30 +28,19 @@ class GraphProblem(Problem):
         for d in self.graph.graph_dict.values():
             local_min = min(d.values())
             m = min(m, local_min)
-
         return m
 
-    def value(self, node):
-        """Sets the value of the state of the nodes as the direct distance between the node and the goal, as provided by the function h(node)"""
-        return self.h(node)
+    def value(self, node1, node2):
+        """Sets the value of the state of the nodes as the direct distance between the node1 and the goal,
+        and the distance between node1 and its previous node (node2) as provided by the function h(node)"""
+        return self.h(node1) + self.graph.get(node1, node2)
 
     def h(self, node):
-        if self.romania:
-            """h function is straight-line distance from a node's state to goal. Using grid system for romania."""
-            locs = getattr(self.graph, 'locations', None)
-            if locs:
-                if type(node) is str:
-                    return int(distance(locs[node], locs[self.goal]))
-
-                return int(distance(locs[node.state], locs[self.goal]))
-            else:
-                return np.inf
-        else:
-            """Using latitude and longitude."""
-            locs = getattr(self.graph, 'locations', None)
-            if locs:
-                if type(node) is str:
-                    return (geopy.distance.geodesic(locs[node.state], locs[self.goal]).km / self.speed)
+        """h function is straight-line distance from a node's state to goal. Using latitude and longitude."""
+        locs = getattr(self.graph, 'locations', None)
+        if locs:
+            if type(node) is str:
                 return (geopy.distance.geodesic(locs[node.state], locs[self.goal]).km / self.speed)
-            else:
-                return np.inf
+            return (geopy.distance.geodesic(locs[node.state], locs[self.goal]).km / self.speed)
+        else:
+            return np.inf
