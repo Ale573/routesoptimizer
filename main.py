@@ -48,7 +48,7 @@ def main():
     agent2= GraphSearchAgent('WA', 'DC', 'USAMap.csv')
     print("Agent has discovered the path " + str(agent2.__call__('A*')) + " using A*.")
 
-    agent3= GraphSearchAgent('Aguadilla', 'San Germán', 'PRMap.csv')
+    agent3= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
     print("Agent has discovered the path "+ str(agent3.__call__('A*')) + " using A*.")    
 
 if __name__ == "__main__":

@@ -59,11 +59,11 @@ def simulated_annealing(problem, schedule=exp_schedule()):
         T = current_value
         if T == 0:
             print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(distance_traveled))
-            return current
+            return best_path
         neighbors = current.expand(problem)
         if not neighbors:
             print("\n returned " + str(best_path) + " with a T of " + str(T) + " because it had no neighbors.")
-            return current
+            return best_path
         next_choice = random.choice(neighbors)
         delta_e = problem.value(next_choice.state) - current_value
         if delta_e < 0 :

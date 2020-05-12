@@ -26,7 +26,7 @@ class GraphSearchAgent:
         self.state = initial_state
         self.goal = goal
         if isinstance(environment, str):
-            #If given string of name of file
+            #If given a string with the name of the file
             #Map dictionary
             file_dict= map_to_dict(csv_map=environment)
             file_dict_locations = map_coordenates(csv_map=environment)
@@ -35,7 +35,7 @@ class GraphSearchAgent:
             file_map.locations = file_dict_locations
             self.problem = GraphProblem(initial_state, goal, file_map)
         else:
-            #if given graph
+            #if given a graph
             self.problem = GraphProblem(initial_state, goal, environment)
 
         self.seq = []
@@ -55,7 +55,7 @@ class GraphSearchAgent:
         if algorithm=='A*':
             return astar_search(self.problem).solution()
         elif algorithm=='Annealing':
-            return None #simulated_annealing(self.problem)
+            return simulated_annealing(self.problem)
 
 
 
