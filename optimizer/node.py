@@ -36,8 +36,8 @@ class Node:
         return next_node
 
     def solution(self):
-        """Return the sequence of actions to go from the root to this node."""
-        return [node.action for node in self.path()[1:]]
+        """Return the sequence of actions to go from the root to this node and the path cost."""
+        return [node.action for node in self.path()[1:]], self.path_cost
 
     def path(self):
         """Return a list of nodes forming the path from the root to this node."""
