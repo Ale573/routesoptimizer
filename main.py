@@ -44,12 +44,17 @@ def main():
     #Search agent
     agent1= GraphSearchAgent('Arad', 'Bucharest', romania_map)
     print("Agent has discovered the path "+ str(agent1.__call__('A*')) + " using A*.")
+    
+    agent2= GraphSearchAgent('Arad', 'Bucharest', romania_map)
+    print("Agent has discovered the path "+ str(agent2.__call__('Annealing')) + " using Annealing.")
 
-    agent2= GraphSearchAgent('WA', 'DC', 'USAMap.csv')
-    print("Agent has discovered the path " + str(agent2.__call__('A*')) + " using A*.")
+    agent3= GraphSearchAgent('WA', 'DC', 'USAMap.csv')
+    print("Agent has discovered the path " + str(agent3.__call__('A*')) + " using A*.")
+    print("Agent has discovered the path " + str(agent3.__call__('Annealing')) + " using Annealing.")
 
-    agent3= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
-    print("Agent has discovered the path "+ str(agent3.__call__('A*')) + " using A*.")    
+    agent4= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
+    print("Agent has discovered the path "+ str(agent4.__call__('A*')) + " using A*.")
+    print("Agent has discovered the path " + str(agent4.__call__('Annealing')) + " using Annealing.")    
 
 if __name__ == "__main__":
     main()

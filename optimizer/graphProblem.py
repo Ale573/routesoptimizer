@@ -1,6 +1,5 @@
 from optimizer.problem import Problem
 from optimizer.utils import distance
-# import references.utils
 import numpy as np
 
 class GraphProblem(Problem):
@@ -18,7 +17,7 @@ class GraphProblem(Problem):
         """The result of going to a neighbor is just that neighbor."""
         return action
 
-    def path_cost(self, cost_so_far, A, action, B):
+    def path_cost(self, cost_so_far, A, action, B=None):
         return cost_so_far + (self.graph.get(A, B) or np.inf)
 
     def find_min_edge(self):
@@ -27,12 +26,12 @@ class GraphProblem(Problem):
         for d in self.graph.graph_dict.values():
             local_min = min(d.values())
             m = min(m, local_min)
-
         return m
 
-    def value(self, node):
-        """Sets the value of the state of the nodes as the direct distance between the node and the goal, as provided by the function h(node)"""
-        return self.h(node)
+    def value(self, node1, node2):
+        """Sets the value of the state of the nodes as the direct distance between the node1 and the goal,
+        and the distance between node1 and its previous node (node2) as provided by the function h(node)"""
+        return self.h(node1) + self.graph.get(node1, node2)
 
     def h(self, node):
         """h function is straight-line distance from a node's state to goal."""

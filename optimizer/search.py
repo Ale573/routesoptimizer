@@ -1,6 +1,6 @@
 from optimizer.node import Node
 from optimizer.queue import PriorityQueue
-from optimizer.utils import memoize
+from optimizer.utils import *
 import random
 import sys
 import numpy as np
@@ -49,29 +49,25 @@ def exp_schedule(k=20, lam=0.005, limit=100):
     return lambda t: (k * np.exp(-lam * t) if t < limit else 0)
 
 def simulated_annealing(problem, schedule=exp_schedule()):
-    """[Figure 4.5] Returns node"""
+    """ This version returns all the states encountered in reaching 
+    the goal state."""
+    states = []
     current = Node(problem.initial)
-    current_value = problem.value(current.state)
-    best_path = []
-    distance_traveled = 0
-    best_path.append(current.state)
+    current_value = problem.h(current.state)
     for t in range(sys.maxsize):
-        T = current_value
+        T = problem.h(current.state)
+        if not states.__contains__(current.state):
+            states.append(current.state)
+            #print("Analyzing " + str(states) + ". T equals " + str(T))
         if T == 0:
-            print("\n returned " + str(best_path) + " because T equals " + str(T) + " at a distance of " + str(distance_traveled))
-            return best_path
+            #print("Returned " + str(states) + ". T equals " + str(T))
+            return states
         neighbors = current.expand(problem)
         if not neighbors:
-            print("\n returned " + str(best_path) + " with a T of " + str(T) + " because it had no neighbors.")
-            return best_path
+            return current.state
         next_choice = random.choice(neighbors)
-        delta_e = problem.value(next_choice.state) - current_value
-        if delta_e < 0 :
+        delta_e = problem.h(next_choice.state) -current_value
+        if delta_e < 0 or probability(np.exp(delta_e / T)):
+            current_value= problem.h(next_choice.state)
             current = next_choice
-            current_value=problem.value(current.state)
-            if not best_path.__contains__(current.state):
-                best_path.append(current.state)    
-                distance_traveled+=current_value
-            print("\n analyzing" + str(current) + " at a T of " + str(T) + " and a delta_e of " + str(delta_e)
-            + " resulting in " + str(best_path) + " and a distance of " + str(distance_traveled))
 
