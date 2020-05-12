@@ -8,20 +8,18 @@ from optimizer.utils import map_to_dict, map_coordenates
 
 if __name__ == "__main__":
 
+    agent1= GraphSearchAgent('WA', 'DC', 'USAMap.csv', 45)
+    agent1_result = agent1.__call__('A*')
+    print("Agent has discovered the path", agent1_result[0], "with time of", agent1_result[1], "hours using A*.")
+    
+    agent2= GraphSearchAgent('WA', 'DC', 'USAMap.csv', 45)
+    agent2_result = agent2.__call__('Annealing')
+    print("Agent has discovered the path", agent2_result, "using Simulated Annealing.")
 
-    agent1 = GraphSearchAgent('WA', 'DC', 'USAMap.csv', 45)
-
-    agent1_astar = agent1.__call__('A*')
-    agent1_simulated_annealing = agent1.__call__('Annealing')
-
-    print("Agent has discovered the path", agent1_astar[0],
-          "with a time of", int(agent1_astar[1]), 
-          "hours using A*.")
-          
-    print("Agent has discovered the path", agent1_simulated_annealing[0],
-          "with a time of", int(agent1_simulated_annealing[1]), 
-          "hours using Simulated Annealing.")
-
-    #agent4= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv')
-    #print("Agent has discovered the path "+ str(agent4.__call__('A*')) + " using A*.")
-    #print("Agent has discovered the path " + str(agent4.__call__('Annealing')) + " using Annealing.") 
+    agent3= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv', 45)
+    agent3_result = agent3.__call__('A*')
+    print("Agent has discovered the path", agent3_result[0], "with time of", agent3_result[1], "hours using A*.")
+    
+    agent4= GraphSearchAgent('Aguadilla', 'SanGerman', 'PRMap.csv', 45)
+    agent4_result = agent4.__call__('Annealing')
+    print("Agent has discovered the path", agent4_result, "using Simulated Annealing.")   

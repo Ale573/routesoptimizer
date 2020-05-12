@@ -55,9 +55,9 @@ def simulated_annealing(problem, schedule=exp_schedule()):
     the goal state."""
     states = []
     current = Node(problem.initial)
-    current_value = problem.h(current.state)
+    current_value = problem.h(current)
     for t in range(sys.maxsize):
-        T = problem.h(current.state)
+        T = problem.h(current)
         if not states.__contains__(current.state):
             states.append(current.state)
             #print("Analyzing " + str(states) + ". T equals " + str(T))
@@ -68,8 +68,8 @@ def simulated_annealing(problem, schedule=exp_schedule()):
         if not neighbors:
             return current.state
         next_choice = random.choice(neighbors)
-        delta_e = problem.h(next_choice.state) -current_value
+        delta_e = problem.h(next_choice) -current_value
         if delta_e < 0 or probability(np.exp(delta_e / T)):
-            current_value= problem.h(next_choice.state)
+            current_value= problem.h(next_choice)
             current = next_choice
 
