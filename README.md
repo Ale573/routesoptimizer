@@ -6,8 +6,7 @@ This software utilizes and compares two different algorithms to find the best ro
 
 # Installation
 ## Dependencies
-Inside the project folder:
-Install geopy:
+Inside the project folder install geopy:
 ```bash
 $ pip install geopy
 ```
