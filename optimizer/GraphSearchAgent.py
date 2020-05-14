@@ -4,6 +4,10 @@ from optimizer.search import astar_search, simulated_annealing
 from optimizer.problem import Problem
 from optimizer.utils import map_to_dict, map_coordenates
 
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
 class GraphSearchAgent:
     """
     Modified from [Figure 3.1]

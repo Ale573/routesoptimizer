@@ -3,6 +3,10 @@ from optimizer.utils import distance
 import numpy as np
 import geopy.distance
 
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
 class GraphProblem(Problem):
     """The problem of searching a graph from one node to another."""
 
@@ -36,7 +40,7 @@ class GraphProblem(Problem):
         return self.h(node1) + self.graph.get(node1, node2)
 
     def h(self, node):
-        """h function is straight-line distance from a node's state to goal. Using latitude and longitude."""
+        """Modified: h function is straight-line distance from a node's state to goal. Using geopy to calculate the distance between coordenates."""
         locs = getattr(self.graph, 'locations', None)
         if locs:
             if type(node) is str:

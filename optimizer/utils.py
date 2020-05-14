@@ -2,7 +2,13 @@ import numpy as np
 import csv
 import random
 
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
+
 def get_data_from_csv(csv_map):
+    """Return the data of a csv file."""
     with open('tests/' + csv_map, encoding='utf-8') as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         result = []
@@ -11,6 +17,7 @@ def get_data_from_csv(csv_map):
         return result
 
 def map_to_dict(csv_map):
+    """Return the distance between to nodes as a dictionary. Only works with a matrix 2x2 starting from the second column."""
     csv_data = get_data_from_csv(csv_map)
     cities = csv_data[0][2:]
     result = dict()
@@ -25,6 +32,7 @@ def map_to_dict(csv_map):
     return result
 
 def map_coordenates(csv_map):
+    """Return the coordanates in the first column of the csv file as a dictionary."""
     csv_data = get_data_from_csv(csv_map)
     cities = csv_data[0][2:]
     result = dict()

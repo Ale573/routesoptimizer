@@ -5,6 +5,10 @@ import random
 import sys
 import numpy as np
 
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
 # ----------------------- BEST FIRST SEARCH -----------------------
 def best_first_graph_search(problem, f, display=False):
     """Search the nodes with the lowest f scores first.

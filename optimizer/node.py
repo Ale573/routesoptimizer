@@ -1,3 +1,7 @@
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
 class Node:
     """A node in a search tree. Contains a pointer to the parent (the node
     that this is a successor of) and to the actual state for this node. Note

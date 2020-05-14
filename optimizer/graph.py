@@ -1,3 +1,7 @@
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
 class Graph:
     """A graph connects nodes (vertices) by edges (links). Each edge can also
     have a length associated with it. The constructor call is something like:

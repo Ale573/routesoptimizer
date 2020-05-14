@@ -3,6 +3,10 @@
 # PriorityQueue is implemented here
 import heapq
 
+"""
+Autorship: Aimacode Repository
+URL: https://github.com/aimacode/aima-python
+"""
 class PriorityQueue:
     """A Queue in which the minimum (or maximum) element (as determined by f and
     order) is returned first.
