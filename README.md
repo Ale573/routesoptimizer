@@ -4,8 +4,8 @@ This software utilizes and compares two different algorithms to find the best ro
 ## Requirements 
 * Python 3.6 or greater
 
-## Installation
-# Dependencies 
+# Installation
+## Dependencies 
 Install geopy:
 ```bash
 $ pip install geopy
