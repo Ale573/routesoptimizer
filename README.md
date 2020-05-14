@@ -5,15 +5,15 @@ This software utilizes and compares two different algorithms to find the best ro
 * Python 3.6 or greater
 
 # Installation
-## Dependencies 
+## Dependencies
+Inside the project folder:
 Install geopy:
 ```bash
 $ pip install geopy
 ```
 
 ## Run the application
-This section contains instruction to run the application.
-To run the application simply run:
+To run the application simply run the next command in the project folder:
 ```bash
 $ py main.py
 ```
